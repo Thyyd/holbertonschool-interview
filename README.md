@@ -1,2 +1,3 @@
 # holbertonschool-interview
-Repo for the algorithms projects
+
+In this project we will add the programs of the algorithms project
