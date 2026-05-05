@@ -8,7 +8,8 @@ def is_safe(queens, row, col):
     Check if a queen can be safely placed at the given position.
 
     Args:
-        queens (list): List of tuples (row, col) representing already placed queens.
+        queens (list): List of tuples (row, col) representing
+        already placed queens.
         row (int): The row index where we want to place the new queen.
         col (int): The column index where we want to place the new queen.
 
@@ -26,7 +27,8 @@ def backtrack(queens, row, n, solutions):
     Recursively explore all possible queen placements using backtracking.
 
     Args:
-        queens (list): List of tuples (row, col) representing already placed queens.
+        queens (list): List of tuples (row, col) representing
+        already placed queens.
         row (int): The current row being processed.
         n (int): The size of the chessboard (N×N).
         solutions (list): List that accumulates all valid solutions found.
