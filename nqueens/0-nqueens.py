@@ -1,71 +1,84 @@
-#!/usr/bin/python3
-"""
-N Queens Problem Solver
-"""
+#!/usr/bin/env python3
+"""N queens puzzle solver"""
 import sys
 
 
-def is_safe(board, row, col, n):
+def is_safe(queens, row, col):
     """
-    Vérifie si on peut placer une reine à la position (row, col)
+    Check if a queen can be safely placed at the given position.
 
     Args:
-        board: liste des positions des reines (liste de [row, col])
-        row: ligne actuelle
-        col: colonne à tester
-        n: taille de l'échiquier
+        queens (list): List of tuples (row, col) representing already placed queens.
+        row (int): The row index where we want to place the new queen.
+        col (int): The column index where we want to place the new queen.
 
     Returns:
-        True si la position est sûre, False sinon
+        bool: True if the position is safe, False otherwise.
     """
-    for queen in board:
-        queen_row, queen_col = queen[0], queen[1]
-
-        if queen_col == col:
+    for r, c in queens:
+        if c == col or abs(r - row) == abs(c - col):
             return False
-
-        if queen_row - queen_col == row - col:
-            return False
-
-        if queen_row + queen_col == row + col:
-            return False
-
     return True
 
 
-def solve_nqueens(board, row, n, solutions):
+def backtrack(queens, row, n, solutions):
     """
-    Résout le problème des N reines avec backtracking
+    Recursively explore all possible queen placements using backtracking.
 
     Args:
-        board: positions actuelles des reines
-        row: ligne actuelle à traiter
-        n: taille de l'échiquier
-        solutions: liste pour stocker toutes les solutions
+        queens (list): List of tuples (row, col) representing already placed queens.
+        row (int): The current row being processed.
+        n (int): The size of the chessboard (N×N).
+        solutions (list): List that accumulates all valid solutions found.
+
+    Returns:
+        None: Solutions are appended directly to the solutions list.
     """
     if row == n:
-        solutions.append([queen[:] for queen in board])
+        solutions.append([[r, c] for r, c in queens])
         return
-
     for col in range(n):
-        if is_safe(board, row, col, n):
-            board.append([row, col])
-
-            solve_nqueens(board, row + 1, n, solutions)
-
-            board.pop()
+        if is_safe(queens, row, col):
+            queens.append((row, col))
+            backtrack(queens, row + 1, n, solutions)
+            queens.pop()
 
 
-def main():
+def solve_nqueens(n):
     """
-    Point d'entrée du programme
+    Find all solutions to the N queens problem on an N×N chessboard.
+
+    Args:
+        n (int): The size of the chessboard and the number of queens to place.
+
+    Returns:
+        list: A list of solutions, where each solution is a list of [row, col]
+              pairs representing the position of each queen.
     """
-    if len(sys.argv) != 2:
+    solutions = []
+    backtrack([], 0, n, solutions)
+    return solutions
+
+
+def validate_input(args):
+    """
+    Validate the command-line arguments provided by the user.
+
+    Args:
+        args (list): The list of command-line arguments (sys.argv).
+
+    Returns:
+        int: The validated value of N if all checks pass.
+
+    Raises:
+        SystemExit: Exits with status 1 if arguments are invalid.
+    """
+    if len(args) != 2:
         print("Usage: nqueens N")
         sys.exit(1)
 
     try:
-        n = int(sys.argv[1])
+        n = int(args[1])
     except ValueError:
         print("N must be a number")
         sys.exit(1)
@@ -74,12 +87,11 @@ def main():
         print("N must be at least 4")
         sys.exit(1)
 
-    solutions = []
-    solve_nqueens([], 0, n, solutions)
-
-    for solution in solutions:
-        print(solution)
+    return n
 
 
 if __name__ == "__main__":
-    main()
+    N = validate_input(sys.argv)
+
+    for solution in solve_nqueens(N):
+        print(solution)
