@@ -19,9 +19,9 @@ void swap(int *a, int *b)
  * @root: Index de la racine du sous-arbre à tamiser
  * @heap_size: Taille actuelle du heap
  *
- * Description: Cette fonction maintient la propriété du max heap en déplaçant
- * un élément vers le bas jusqu'à ce qu'il soit à sa position correcte.
- * Le parent doit toujours être plus grand que ses enfants.
+ * Description: Cette fonction maintient la propriété du max heap en
+ * déplaçant un élément vers le bas jusqu'à ce qu'il soit à sa position
+ * correcte. Le parent doit toujours être plus grand que ses enfants.
  */
 void sift_down(int *array, size_t size, size_t root, size_t heap_size)
 {
@@ -33,11 +33,13 @@ void sift_down(int *array, size_t size, size_t root, size_t heap_size)
 	if (left < heap_size && array[left] > array[largest])
 		largest = left;
 
-	/* Vérifier si l'enfant droit existe et est plus grand que le plus grand actuel */
+	/* Vérifier si l'enfant droit existe et est plus grand que le plus
+	grand actuel */
 	if (right < heap_size && array[right] > array[largest])
 		largest = right;
 
-	/* Si le plus grand n'est pas la racine, échanger et continuer le sift-down */
+	/* Si le plus grand n'est pas la racine, échanger et continuer le
+	sift-down */
 	if (largest != root)
 	{
 		swap(&array[root], &array[largest]);
