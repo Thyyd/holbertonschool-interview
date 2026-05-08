@@ -33,13 +33,11 @@ void sift_down(int *array, size_t size, size_t root, size_t heap_size)
 	if (left < heap_size && array[left] > array[largest])
 		largest = left;
 
-	// Vérifier si l'enfant droit existe et est plus grand que
-	// le plus grand actuel
+	/* Vérifier si l'enfant droit existe et est plus grand que l'actuel max */
 	if (right < heap_size && array[right] > array[largest])
 		largest = right;
 
-	// Si le plus grand n'est pas la racine, échanger et continuer le
-	// sift-down
+	/* Si le plus grand n'est pas la racine, échanger et continuer le filtrage */
 	if (largest != root)
 	{
 		swap(&array[root], &array[largest]);
