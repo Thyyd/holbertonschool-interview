@@ -59,6 +59,7 @@ void multiply(char *num1, char *num2)
 {
 	int len1, len2, len, i, j, n1, n2, prod, carry, start;
 	int *result;
+
 	len1 = _strlen(num1);
 	len2 = _strlen(num2);
 	len = len1 + len2;
@@ -73,7 +74,6 @@ void multiply(char *num1, char *num2)
 	{
 		n1 = num1[i] - '0';
 		carry = 0;
-
 		for (j = len2 - 1; j >= 0; j--)
 		{
 			n2 = num2[j] - '0';
